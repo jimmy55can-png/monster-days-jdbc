@@ -7,20 +7,44 @@
     <groupId>com.monsterdays</groupId>
     <artifactId>monster-days-jdbc</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
-    <name>Monster Days - Módulo Jugador (JDBC)</name>
+    <packaging>war</packaging>
+    <name>Monster Days - Módulo Jugador (JDBC, Servlets y JSP)</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
 
     <dependencies>
+        <!-- Driver MySQL (de la evidencia AA2-EV01) -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>8.4.0</version>
         </dependency>
+        <!-- API de Servlets: la aporta Tomcat 10.1 -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- JSTL para las etiquetas c:forEach, c:if, c:out -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>3.0.1</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <finalName>monster-days</finalName>
+    </build>
 </project>
