@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public final class ConexionBD {
 
     private static final String URL_POR_DEFECTO =
-            "jdbc:mysql://localhost:3306/monster_days?useSSL=false&serverTimezone=America/Bogota";
+            "jdbc:mysql://localhost:3306/monster_days?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Bogota";
     private static final String USUARIO_POR_DEFECTO = "root";
     private static final String CLAVE_POR_DEFECTO = "";
 
@@ -29,7 +29,13 @@ public final class ConexionBD {
     public static Connection obtenerConexion() throws SQLException {
         String url = leerVariable("MD_DB_URL", URL_POR_DEFECTO);
         String usuario = leerVariable("MD_DB_USER", USUARIO_POR_DEFECTO);
-        String clave = leerVariable("MD_DB_PASSWORD", CLAVE_POR_DEFECTO);
+        String clave = leerVariable("MD_DB_PASSWORD", CLAVE_POR_DEFECTO);   
+             try {
+            // Necesario en Tomcat: registra el driver desde WEB-INF/lib de la aplicación.
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("No se encontró el driver de MySQL", e);
+        }
         return DriverManager.getConnection(url, usuario, clave);
     }
 
